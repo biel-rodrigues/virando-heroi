@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Virando Herói</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+		
+		<!--JavaScript Tempate -->
+		<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+		
+	
+
+        <style>
+            .cards .card .image img{
+                max-height: 180px;
+            }
+        </style>
+
+    </head>
+    <body class="antialiased">
+        <div class="ui container">
+        
+        <!-- MENU -->
+		<div class="ui inverted top fixed menu">
+			<a class="item" th:href="@{/}">Home</a>
+			<a class="item" th:href="@{/usuario/cadastro_candidato}">Criar Conta</a>
+			<a class="item" th:href="@{/usuario/cadastro_vaga}">Cadastrar Vagas</a>
+			<div class="right menu">
+				<div class="item">
+					<a class="ui primary button" th:href="@{/entrar}">Entrar</a>
+				</div>
+				<div class="item">
+					<form action="/logout" method="post">
+						<button type="submit" class="ui primary button">Sair</button>
+						
+<!-- 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<!-- FORMULÁRIO -->
+		<h1 class="ui horizontal divider header" style="margin-top: 100px;" >Cadastro de Vagas</h1>
+            
+		<form class="ui form" action="/usuario/cadastro_vaga" method="POST">
+	            
+			<input type="hidden" name="id" th:value="${vaga?.id}">
+	            
+			<div class="ui field">
+				<label>Título</label>
+				<input type="text" placeholder="Título" name="titulo" th:value="${vaga?.titulo}" />
+			</div>
+	            
+			<div class="two fields">
+				<div class="ui field">
+					<label>Data de Postagem</label>
+					<input type="date" placeholder="Data Postagem" name="dataPostagem" th:value="${vaga?.dataPostagem}"/>
+				</div>
+				
+				<div class="ui field">
+				<label>Data de Expiração</label>
+				<input type="date" placeholder="Data Expiração" name="dataExpiracao" th:value="${vaga?.dataExpiracao}"/>
+			</div>
+			
+			</div>
+            
+            <div class="ui field">
+					<label>Descrição</label>
+					<input type="text" placeholder="Descrição" name="descricao" th:value="${vaga?.descricao}"/>
+				</div>
+
+			<button style="margin-top: 20px; margin-bottom: 50px;" class="ui green button success" type="submit">Salvar</button>
+			
+	        <div style="margin-bottom: 50px;" class="ui error message"></div>   	
+		</form>
+
+	</div>
+        
+    </body>
+</html>

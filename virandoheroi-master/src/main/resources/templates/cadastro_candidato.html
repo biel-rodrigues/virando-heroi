@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Virando Herói - Cadastro do usuário</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="css/estilo.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+    <style>
+        .cards .card .image img{
+            max-height: 180px;
+        }
+        form{
+            margin-bottom: 0px;
+        }
+    </style>
+    
+</head>
+
+<body class="antialiased">
+	<div class="ui container">
+        
+        <!-- MENU -->
+		<div class="ui inverted top fixed menu">
+			<a class="item" th:href="@{/}">Home</a>
+			<a class="item" th:href="@{/usuario/cadastro_candidato}">Criar Conta</a>
+			<a class="item" th:href="@{/usuario/cadastro_vaga}">Cadastrar Vagas</a>
+			<div class="right menu">
+				<div class="item">
+					<a class="ui primary button" th:href="@{/entrar}">Entrar</a>
+				</div>
+				<div class="item">
+					<form action="/logout" method="post">
+						<button type="submit" class="ui primary button">Sair</button>
+						
+<!-- 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<!-- FORMULÁRIO -->
+
+		<h1 class="ui horizontal divider header" style="margin-top: 100px;" >Criar uma conta</h1>
+
+		<div class="ui two column centered grid">
+			<div class="column">
+				<div class="column">
+				<div class="ui pointing two item menu">
+					<a style="font-weight: bold;" class="item active" th:href="@{/usuario/cadastro_candidato}">Candidato</a>
+					<a style="font-weight: bold;" class="item" th:href="@{/usuario/cadastro_ong}">ONG</a>
+				</div>
+				
+				<form class="ui form" action='/usuario/cadastro_candidato' method="POST" >
+					
+					<input type="hidden" name="id" th:value="${usuario?.id}">
+					<input type="hidden" name="tipo" th:value="${usuario?.tipo}">
+				
+					<div class="field">
+						<label>Nome Completo</label>
+						<input type="text" name="nome" placeholder="Nome Completo" th:value="${usuario?.nome}" />
+					</div>
+				
+					<div class="field">
+						<label>Telefone</label>
+						<input type="text" name="telefone" placeholder="Telefone" th:value="${usuario?.telefone}" />
+					</div>
+				
+					<div class="field">
+						<label>E-mail</label>
+						<input type="text" name="email" placeholder="E-mail" th:value="${usuario?.email}" />
+					</div>
+					
+					<div class="field">
+						<label>Senha</label>
+						<input type="password" name="senha" placeholder="Senha" th:value="${usuario?.senha}" />
+					</div>
+				
+					<div class="field">
+						<label>Endereço</label>
+						<input type="text" name="endereco" placeholder="Endereço" th:value="${usuario?.endereco}" />
+					</div>					
+				
+					<button style="margin-top: 20px; margin-bottom: 50px;" class="ui green button" type="submit">Criar</button>
+
+					<div class="ui error message"></div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	
+	
+	
+	
+	<!-- VALIDAÇÃO FORMULÁRIO -->
+	<script type="text/javascript">
+       	$("form").form({
+       		fields:{
+       			nome_completo:{
+       				identifier:"nome_completo",
+       				rules:[{
+       					type:"empty",
+       					prompt:"O nome não pode estar vazio!"
+       				}]
+       			},
+       			telefone:{
+       				identifier:"telefone",
+       				rules:[{
+       					type:"integer",
+       					prompt:"O telefone é inválido!"
+       				}]
+       			},
+       			email:{
+       				identifier:"email",
+       				rules:[{
+       					type:"email",
+       					prompt:"O email é inválido!"
+       				}]
+       			},
+       			endereco:{
+       				identifier:"endereco",
+       				rules:[{
+       					type:"empty",
+       					prompt:"O endereço não pode estar vazio!"
+       				}]
+       			},
+       			cpf:{
+       				identifier:"cpf",
+       				rules:[{
+       					type:"minLength[11]",
+       					prompt:"O cpf é inválido!"
+       				}]
+       			},
+				senha:{
+       				identifier:"senha",
+       				rules:[{
+       					type:"empty",
+       					prompt:"A senha não pode estar vazia!"
+       				}]
+       			}
+       		}
+       	})
+	</script>
+	
+	
+	
+	
+</body>
+
+</html>
